@@ -34,3 +34,35 @@ func main() {
   fmt.Println(c.Get("key")) // output: nil
 }
 ```
+
+Also added TTL (time to live) cache. A TTL (Time To Live) cache is a data store where data is removed after a defined period of time to optimize memory performance.
+
+In action like previews cache
+## Example
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/DiasOrazbaev/cache"
+	"time"
+)
+
+func main() {
+	// create new instance of cache
+	c := cache.NewTTLInMemoryCache()
+
+	// Set some value to cache
+	c.Set("key", "value", time.Second * 2)
+
+	// get some value by key
+	fmt.Println(c.Get("key")) // output: value
+
+	// wait until delete from cache
+	time.Sleep(time.Second * 2)
+
+	fmt.Println(c.Get("key")) // output: nil
+}
+
+```
